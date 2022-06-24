@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des vehicules
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+
+		<h1>Gestion des vehicules</h1>
+
+		<hr>
+
+		<table class="table ">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Titre</th>
+					<th>Marque</th>
+					<th>Modele</th>
+					<th>Description</th>
+					<th>Image</th>
+					<th>Prix</th>
+					<th>EnregisterAt</th>
+					<th>Fiche</th>
+					<th>Modifier</th>
+					<th>Supprimer</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for vehicule in vehicules %}
+					<tr>
+						<td>{{ vehicule.id }}</td>
+						<td>{{ vehicule.titre }}</td>
+						<td>{{ vehicule.marque }}</td>
+						<td>{{ vehicule.modele }}</td>
+						<td>{{ vehicule.description }}</td>
+
+						<td>
+							{% if vehicule.image %}
+								<img src="{{asset('images/' ~ vehicule.image)}}" height="100" alt="">
+							{% else %}
+								<img src="{{ asset('images/imageDefault.jpg') }}" height="100" alt="">
+							{% endif %}
+						</td>
+
+						<td>{{ vehicule.prix }}</td>
+						<td>{{ vehicule.enregisterAt ? vehicule.enregisterAt|date('Y-m-d H:i:s') : '' }}</td>
+						<td>
+							<a href="{{ path('app_admin_vehicule_show', {'id': vehicule.id}) }}">
+							<i class="fa-solid fa-eye fs-4 text-success ms-1"></i>
+							</a>
+						</td>
+						<td>
+							<a href="{{ path('app_admin_vehicule_edit', {'id': vehicule.id}) }}">
+							<i class="fa-solid fa-pen-to-square fs-4 ms-3"></i>
+							</a>
+						</td>
+						<td>
+							{{ include('admin_vehicule/_delete_form.html.twig') }}
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="9">no records found</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+		<a href="{{ path('app_admin_vehicule_new') }}">Create new</a>
+	</div>
+{% endblock %}

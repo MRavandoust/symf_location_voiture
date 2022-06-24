@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des commandes
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+
+		<h1>Gestion des commandes</h1>
+		<hr>
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>StartAt</th>
+					<th>EndAt</th>
+					<th>Prix</th>
+					<th>EnregistrerAt</th>
+					<th>User</th>
+					<th>Fiche</th>
+					<th>Modifier</th>
+					<th>Supprimer</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for commande in commandes %}
+					<tr>
+						<td>{{ commande.id }}</td>
+						<td>{{ commande.startAt ? commande.startAt|date('Y-m-d H:i:s') : '' }}</td>
+						<td>{{ commande.endAt ? commande.endAt|date('Y-m-d H:i:s') : '' }}</td>
+						<td>{{ commande.prix }}</td>
+						<td>{{ commande.enregistrerAt ? commande.enregistrerAt|date('Y-m-d H:i:s') : '' }}</td>
+						<td>{{ commande.user }}</td>
+						<td>
+							<a href="{{ path('app_commande_show', {'id': commande.id}) }}"><i class="fa-solid fa-eye fs-4 text-success ms-1"></i></a>
+						</td>
+						<td>
+							<a href="{{ path('app_commande_edit', {'id': commande.id}) }}"><i class="fa-solid fa-pen-to-square fs-4 ms-3"></i></a>
+						</td>
+						<td>
+							{{ include('commande/_delete_form.html.twig') }}
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="6">no records found</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+		<a href="{{ path('app_commande_new') }}">Create new</a>
+
+	</div>
+{% endblock %}
