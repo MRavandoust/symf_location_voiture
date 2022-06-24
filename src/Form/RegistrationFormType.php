@@ -68,6 +68,7 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
+            
             ->add('roles', ChoiceType::class, [
                 'choices' => [
                     'Utilisateur' => "ROLE_USER",
