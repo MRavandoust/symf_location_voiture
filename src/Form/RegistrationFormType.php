@@ -67,7 +67,19 @@ class RegistrationFormType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
-            ]);
+            ])
+            ->add('roles', ChoiceType::class, [
+                'choices' => [
+                    'Utilisateur' => "ROLE_USER",
+                    'Administrateur' => "ROLE_ADMIN"
+                ],
+                "multiple" => true,
+                "attr" => [
+                    'class' => "select"
+                ]
+            ])
+            
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
